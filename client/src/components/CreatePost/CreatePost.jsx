@@ -25,7 +25,6 @@ export default function CreatePost() {
       alert("Enter valid data!");
       return;
     }
-    console.log(imageData);
     await fetch("http://localhost:4000/createPost", {
       method: "POST",
       headers: {
