@@ -11,6 +11,6 @@ export class Blog {
   @Column()
   content: string;
 
-  @Column("bytea", { nullable: true })
-  imageData: Buffer;
+  @Column()
+  imageData: string;
 }
