@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { Blog } from "../entity/Blog";
 import dataSource from "../data-source";
+const cloudinary = require("../cloudinary/cloudinary");
 
 const blogRepo = dataSource.getRepository(Blog);
 
@@ -28,7 +29,10 @@ export const createPost = async (req: Request, res: Response) => {
     let { title, content, imageData } = req.body;
     newPost.title = title;
     newPost.content = content;
-    newPost.imageData = Buffer.from(imageData, "base64");
+    const result = await cloudinary.uploader.upload(imageData, {
+      folder: blogs,
+    });
+    newPost.imageData = result.secure_url;
     await blogRepo.save([newPost]);
     res
       .status(201)
