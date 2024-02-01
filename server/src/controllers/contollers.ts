@@ -8,14 +8,10 @@ const blogRepo = dataSource.getRepository(Blog);
 export const getPosts = async (req: Request, res: Response) => {
   try {
     let allPosts = await blogRepo.find();
-    let postsWithBase64Images = allPosts.map((post) => ({
-      ...post,
-      imageData: post.imageData.toString("base64"),
-    }));
 
     res.status(200).send({
       message: "Posts fetched successfully!!!",
-      data: postsWithBase64Images,
+      data: allPosts,
     });
   } catch (error) {
     console.error("Error fetching blogs:", error);
