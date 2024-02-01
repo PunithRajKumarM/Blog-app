@@ -84,30 +84,42 @@ export default function BlogPostPage() {
           }}
         >
           <>
-            <CardMedia
+            {/* <CardMedia
               component="img"
               alt={post.title}
               src={post.imageData}
               title={post.title}
+            /> */}
+            <div
+              style={{
+                backgroundImage: `url(${post.imageData})`,
+                backgroundPosition: "center",
+                backgroundRepeat: "no-repeat",
+                backgroundSize: "cover",
+                width: "100vw",
+                height: "100vw",
+              }}
             />
-            <CardContent>
-              <Typography gutterBottom variant="h5" component="div">
-                {post.title}
-              </Typography>
-            </CardContent>
-            <CardContent>
-              <Typography gutterBottom variant="p">
-                {post.content}
-              </Typography>
-            </CardContent>
-            <CardActions sx={{ height: 50 }}>
-              <Button size="small" onClick={editHandler}>
-                Edit
-              </Button>
-              <Button size="small" onClick={deleteHandler}>
-                Delete
-              </Button>
-            </CardActions>
+            <div>
+              <CardContent>
+                <Typography gutterBottom variant="h5" component="div">
+                  {post.title}
+                </Typography>
+              </CardContent>
+              <CardContent>
+                <Typography gutterBottom variant="p">
+                  {post.content}
+                </Typography>
+              </CardContent>
+              <CardActions sx={{ height: 50 }}>
+                <Button size="small" onClick={editHandler}>
+                  Edit
+                </Button>
+                <Button size="small" onClick={deleteHandler}>
+                  Delete
+                </Button>
+              </CardActions>
+            </div>
           </>
         </Card>
       )}
