@@ -14,13 +14,11 @@ export default function CreatePost() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [imageData, setImageData] = useState(null);
+  const [createdPost, setCreatedPost] = useState("none");
   const navigate = useNavigate();
 
-  // if (imageData) {
-  //   console.log(imageData);
-  // }
-
   async function submitHandler() {
+    setCreatedPost("creating");
     if (!title || !content || !imageData) {
       alert("Enter valid data!");
       return;
@@ -32,7 +30,9 @@ export default function CreatePost() {
       },
       body: JSON.stringify({ title, content, imageData }),
     });
+
     navigate("/blogs");
+    setCreatedPost("none");
   }
 
   return (
@@ -120,6 +120,12 @@ export default function CreatePost() {
             ></Box>
           )}
         </CardContent>
+        {createdPost === "creating" && (
+          <small style={{ textAlign: "center", color: "dodgerblue" }}>
+            Creating post...
+          </small>
+        )}
+
         <Divider />
         <CardActions
           sx={{
