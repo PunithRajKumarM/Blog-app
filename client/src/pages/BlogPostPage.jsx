@@ -21,18 +21,22 @@ export default function BlogPostPage() {
   }
 
   async function deleteHandler() {
-    let response = await fetch(`http://localhost:4000/deletePost`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ id: +params.blogId }),
-    });
-    if (!response.ok) {
-      alert(response.message);
-      return;
+    // eslint-disable-next-line no-restricted-globals
+    let confirmed = confirm("Are you sure?");
+    if (confirmed) {
+      let response = await fetch(`http://localhost:4000/deletePost`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id: +params.blogId }),
+      });
+      if (!response.ok) {
+        alert(response.message);
+        return;
+      }
+      navigate("/blogs");
     }
-    navigate("/blogs");
   }
 
   useEffect(() => {
@@ -83,7 +87,7 @@ export default function BlogPostPage() {
             justifyContent: "space-between",
           }}
         >
-          <>
+          <div style={{ padding: "1rem" }}>
             {/* <CardMedia
               component="img"
               alt={post.title}
@@ -96,7 +100,6 @@ export default function BlogPostPage() {
                 backgroundPosition: "center",
                 backgroundRepeat: "no-repeat",
                 backgroundSize: "cover",
-                width: "100vw",
                 height: "100vw",
               }}
             />
@@ -120,7 +123,7 @@ export default function BlogPostPage() {
                 </Button>
               </CardActions>
             </div>
-          </>
+          </div>
         </Card>
       )}
     </>

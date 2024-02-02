@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
-import BlogPost from "../Blog/Blog";
 import Box from "@mui/system/Box";
 import { Link, useNavigate } from "react-router-dom";
+import FeaturedBlogPost from "../FeaturedBlog/FeaturedBlog";
 
 export default function BlogPosts() {
   const [posts, setPosts] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -18,10 +17,8 @@ export default function BlogPosts() {
         }
         let { data } = await response.json();
         if (data) {
-          setIsLoading(true);
           console.log("data received", data);
           setPosts(data);
-          setIsLoading(false);
         }
       }
       getPostsData();
@@ -44,12 +41,7 @@ export default function BlogPosts() {
         >
           {posts.map((p) => (
             <Link key={p.id} to={`/blogs/${p.id}`}>
-              <BlogPost
-                id={p.id}
-                title={p.title}
-                content={p.content}
-                imageData={p.imageData}
-              />
+              <FeaturedBlogPost title={p.title} imageData={p.imageData} />
             </Link>
           ))}
         </Box>

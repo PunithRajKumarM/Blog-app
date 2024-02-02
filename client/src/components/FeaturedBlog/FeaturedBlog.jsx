@@ -19,21 +19,17 @@ export default function FeaturedBlogPost({ title, imageData }) {
       }}
     >
       <CardMedia
-        sx={{ height: 150 }}
+        sx={{ height: 170 }}
         component="img"
         alt={blogTitle}
         src={imageData}
         title={blogTitle}
       />
-      <CardContent sx={{ height: 100 }}>
+      <CardContent sx={{ height: 80 }}>
         <Typography gutterBottom variant="h5" component="div">
           {blogTitle}
         </Typography>
       </CardContent>
-      {/* <CardActions sx={{ height: 50 }}>
-        <Button size="small">Edit</Button>
-        <Button size="small">Delete</Button>
-      </CardActions> */}
     </Card>
   );
 }
