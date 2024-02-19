@@ -2,22 +2,23 @@ import React, { useEffect, useState } from "react";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { useParams, useNavigate } from "react-router-dom";
-// import EditPost from "./EditPost/EditPost";
 import { useDispatch, useSelector } from "react-redux";
+import { openEdit } from "../store/editPost";
+import EditPost from "./EditPost/EditPost";
 
 export default function BlogPostPage() {
   const [post, setPost] = useState({});
   const isEdit = useSelector((state) => state.edit.progress);
+  console.log(isEdit);
   const params = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   function editHandler() {
-    // dispatch(openEdit());
+    dispatch(openEdit());
   }
 
   async function deleteHandler() {
@@ -70,6 +71,14 @@ export default function BlogPostPage() {
 
   return (
     <>
+      {isEdit === "show" && (
+        <EditPost
+          id={post.id}
+          title={post.title}
+          content={post.content}
+          imageData={post.imageData}
+        />
+      )}
       {/* {isEdit === "show" && (
         <EditPost
           id={post.id}
