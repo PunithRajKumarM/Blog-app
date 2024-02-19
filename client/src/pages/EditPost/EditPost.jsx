@@ -9,21 +9,24 @@ import Divider from "@mui/material/Divider";
 import Box from "@mui/system/Box";
 import classes from "./EditPost.module.css";
 import { Link, useNavigate } from "react-router-dom";
-import { hideEdit } from "../store/editPost";
 import { useDispatch } from "react-redux";
+import { hideEdit } from "../../store/editPost";
+import Snackbar from "@mui/material/Snackbar";
 
 export default function EditPost({ title, content, id, imageData }) {
   const [newTitle, setNewTitle] = useState(title);
   const [newContent, setNewContent] = useState(content);
   const [newImageData, setNewImageData] = useState(imageData);
+  const [editingPost, setEditingPost] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   async function submitHandler() {
-    if (!title || !content || !imageData) {
+    if (!newTitle || !newContent || !newImageData) {
       alert("Enter valid data!");
       return;
     }
+    setEditingPost(true);
     await fetch("http://localhost:4000/updatePost", {
       method: "PUT",
       headers: {
@@ -36,8 +39,9 @@ export default function EditPost({ title, content, id, imageData }) {
         imageData: newImageData,
       }),
     });
-    navigate("/blogs");
+    setEditingPost(false);
     dispatch(hideEdit());
+    navigate("/blogs");
   }
 
   return (
@@ -96,12 +100,11 @@ export default function EditPost({ title, content, id, imageData }) {
                   reader.readAsDataURL(file);
                 }
               }}
-              value={newImageData}
               required
             />
           </Button>
 
-          {!imageData && (
+          {!newImageData && (
             <Typography
               sx={{
                 display: "flex",
@@ -114,10 +117,10 @@ export default function EditPost({ title, content, id, imageData }) {
             </Typography>
           )}
 
-          {imageData && (
+          {newImageData && (
             <Box
               sx={{
-                backgroundImage: `url(${imageData})`,
+                backgroundImage: `url(${newImageData})`,
                 width: "8rem",
                 height: "4rem",
                 border: "1px solid black",
@@ -128,6 +131,13 @@ export default function EditPost({ title, content, id, imageData }) {
             ></Box>
           )}
         </CardContent>
+        {
+          <Snackbar
+            sx={{ bgcolor: "white", color: "dodgerblue" }}
+            open={editingPost}
+            message="Updating post..."
+          ></Snackbar>
+        }
         <Divider />
         <CardActions
           sx={{

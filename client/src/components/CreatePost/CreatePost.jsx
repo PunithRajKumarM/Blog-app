@@ -9,23 +9,22 @@ import Divider from "@mui/material/Divider";
 import Box from "@mui/system/Box";
 import classes from "./CreatePost.module.css";
 import { Link, useNavigate } from "react-router-dom";
+import Snackbar from "@mui/material/Snackbar";
 
 export default function CreatePost() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [imageData, setImageData] = useState(null);
-  const navigate = useNavigate();
+  const [creatingPost, setCreatingPost] = useState(false);
 
-  // if (imageData) {
-  //   console.log(imageData);
-  // }
+  const navigate = useNavigate();
 
   async function submitHandler() {
     if (!title || !content || !imageData) {
       alert("Enter valid data!");
       return;
     }
-    console.log(imageData);
+    setCreatingPost(true);
     await fetch("http://localhost:4000/createPost", {
       method: "POST",
       headers: {
@@ -33,6 +32,7 @@ export default function CreatePost() {
       },
       body: JSON.stringify({ title, content, imageData }),
     });
+    setCreatingPost(false);
     navigate("/blogs");
   }
 
@@ -121,6 +121,14 @@ export default function CreatePost() {
             ></Box>
           )}
         </CardContent>
+        {
+          <Snackbar
+            sx={{ bgcolor: "white", color: "dodgerblue" }}
+            open={creatingPost}
+            message="Post is creating..."
+          ></Snackbar>
+        }
+
         <Divider />
         <CardActions
           sx={{

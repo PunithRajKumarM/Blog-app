@@ -59,7 +59,11 @@ export default function HomePage() {
             </Box>
           </>
         )}
-        {posts.length > 0 && <Link to="/blogs">View more &rsaquo;</Link>}
+        {posts.length > 0 && (
+          <Link to="/blogs" style={{ color: "dodgerblue" }}>
+            View more &rsaquo;
+          </Link>
+        )}
       </div>
     </>
   );

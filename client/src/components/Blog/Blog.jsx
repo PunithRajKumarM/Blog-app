@@ -27,7 +27,7 @@ export default function BlogPost({ id, title, imageData }) {
         src={imageData}
         title={blogTitle}
       />
-      <CardContent sx={{ height: 100 }}>
+      <CardContent sx={{ height: 50 }}>
         <Typography gutterBottom variant="h5" component="div">
           {blogTitle}
         </Typography>

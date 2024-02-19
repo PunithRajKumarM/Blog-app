@@ -38,7 +38,9 @@ function NavBar() {
                 textDecoration: "none",
               }}
             >
-              BLOG
+              <Link style={{ color: "white" }} to="/">
+                BLOG
+              </Link>
             </Typography>
           </div>
 
