@@ -12,7 +12,6 @@ import EditPost from "./EditPost/EditPost";
 export default function BlogPostPage() {
   const [post, setPost] = useState({});
   const isEdit = useSelector((state) => state.edit.progress);
-  console.log(isEdit);
   const params = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
