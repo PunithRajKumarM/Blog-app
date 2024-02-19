@@ -37,6 +37,7 @@ export default function BlogPosts() {
             justifyContent: "center",
             flexDirection: { md: "row", xs: "column" },
             flexWrap: "wrap",
+            paddingBottom: "2rem",
           }}
         >
           {posts.map((p) => (
